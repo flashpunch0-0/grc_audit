@@ -1,35 +1,72 @@
-name: Weekly Governance Audit
+# name: Weekly Governance Audit
+
+# on:
+#   schedule:
+#     # Runs at 00:00 UTC every Sunday
+#     - cron: '0 0 * * 0'
+#   workflow_dispatch: # Allows you to run it manually for testing
+
+# jobs:
+#   compliance-check:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.9'
+
+#       - name: Install dependencies
+#         run: pip install requests
+
+#       - name: Run Governance Auditor
+#         env:
+#           # This pulls your token from GitHub Secrets
+#           AUDIT_TOKEN: ${{ secrets.GA_AUDIT_TOKEN }}
+#         run: python auditor.py > compliance_report.txt
+
+#       - name: Upload Audit Report
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: governance-audit-report
+#           path: compliance_report.txt
+
+name: Sentinel GRC Framework
 
 on:
   schedule:
-    # Runs at 00:00 UTC every Sunday
     - cron: '0 0 * * 0'
-  workflow_dispatch: # Allows you to run it manually for testing
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write  # Crucial for Automated Remediation
 
 jobs:
-  compliance-check:
+  sentinel-scan:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: pip install requests
 
-      - name: Run Governance Auditor
+      - name: Execute Sentinel Engine
         env:
-          # This pulls your token from GitHub Secrets
           AUDIT_TOKEN: ${{ secrets.GA_AUDIT_TOKEN }}
-        run: python auditor.py > compliance_report.txt
+        run: python auditor.py
 
-      - name: Upload Audit Report
+      - name: Archive Compliance Evidence
         uses: actions/upload-artifact@v4
         with:
-          name: governance-audit-report
-          path: compliance_report.txt
+          name: sentinel-audit-data
+          path: compliance_summary.json
