@@ -1,0 +1,35 @@
+name: Weekly Governance Audit
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every Sunday
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allows you to run it manually for testing
+
+jobs:
+  compliance-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Governance Auditor
+        env:
+          # This pulls your token from GitHub Secrets
+          AUDIT_TOKEN: ${{ secrets.GA_AUDIT_TOKEN }}
+        run: python auditor.py > compliance_report.txt
+
+      - name: Upload Audit Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: governance-audit-report
+          path: compliance_report.txt
