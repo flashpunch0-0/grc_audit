@@ -85,20 +85,20 @@ HEADERS = {
 }
 BASE_URL = "https://api.github.com"
 
-# Visual Dashboard Template
+# Visual Dashboard Template - Corrected with escaped braces
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html>
 <head>
     <title>GRC Security Dashboard</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; color: #333; margin: 40px; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #2c3e50; color: white; }
-        .PASS { background-color: #27ae60; color: white; padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: bold;}
-        .FAIL { background-color: #e74c3c; color: white; padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: bold;}
+        body {{ font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; color: #333; margin: 40px; }}
+        h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
+        table {{ width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }}
+        th, td {{ padding: 15px; text-align: left; border-bottom: 1px solid #ddd; }}
+        th {{ background-color: #2c3e50; color: white; }}
+        .PASS {{ background-color: #27ae60; color: white; padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: bold;}}
+        .FAIL {{ background-color: #e74c3c; color: white; padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: bold;}}
     </style>
 </head>
 <body>
